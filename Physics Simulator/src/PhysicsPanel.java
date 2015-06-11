@@ -24,6 +24,8 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 	private boolean pause;
 	private boolean oneTick;
 	
+	private Camera camera;
+	
 	public static Vector2D gravity;
 	
 	private ArrayList<PhysicsObject> objects;
@@ -37,6 +39,8 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 		addMouseListener(this);
 		objects = new ArrayList<PhysicsObject>();
 		gravity = new Vector2D(0, 0.5);
+		
+		camera = new Camera(new Vector2D(0, 0), 1, WIDTH, HEIGHT);
 
 //		frameCount = 0;
 		lastFrame = System.currentTimeMillis();
@@ -78,6 +82,9 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 				oneTick = false;
 			}
 			
+			camera.width = getWidth();
+			camera.height = getHeight();
+			
 			repaint();
 			try
 			{
@@ -100,7 +107,7 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 		
 		for (int i = 0; i < objects.size(); i++)
 		{
-			objects.get(i).draw(g);
+			objects.get(i).draw(g, camera);
 		}
 	}
 
@@ -140,6 +147,30 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 		{
 			gravity = new Vector2D(-0.5, 0);
 		}
+		else if (e.getKeyCode() == KeyEvent.VK_S)
+		{
+			camera.position.addToThis(new Vector2D(0, 50).multiply(camera.scale));
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_W)
+		{
+			camera.position.addToThis(new Vector2D(0, -50).multiply(camera.scale));
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_D)
+		{
+			camera.position.addToThis(new Vector2D(50, 0).multiply(camera.scale));
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_A)
+		{
+			camera.position.addToThis(new Vector2D(-50, 0).multiply(camera.scale));
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_Q)
+		{
+			camera.scale *= 1.1;
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_E)
+		{
+			camera.scale /= 1.1;
+		}
 	}
 
 	@Override
@@ -170,7 +201,7 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		objects.add(new Circle(new Vector2D(e.getPoint()), new Vector2D(), 30));
+		objects.add(new Circle(new Vector2D(e.getPoint()).add(camera.position), new Vector2D(), 30));
 	}
 
 	@Override

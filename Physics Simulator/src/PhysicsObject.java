@@ -8,5 +8,5 @@ public interface PhysicsObject
 	public void addCollision(PhysicsObject po);
 	public boolean checkCollision(PhysicsObject other);
 	public void resolveCollision(PhysicsObject other);
-	public void draw(Graphics g);
+	public void draw(Graphics g, Camera c);
 }

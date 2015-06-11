@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Circle implements PhysicsObject
 {
-	private static final double RESTITUTION = 0.85;
+	private static final double RESTITUTION = 0.8;
 	private Vector2D position;
 	private Vector2D velocity;
 	private Vector2D acceleration;
@@ -44,7 +44,7 @@ public class Circle implements PhysicsObject
 		{
 			velocity.x = -RESTITUTION * velocity.x;
 			velocity.y = RESTITUTION * velocity.y;
-			position.x = radius;
+			position.x = radius + 1;
 		}
 		if (position.y >= height - radius)
 		{
@@ -123,9 +123,9 @@ public class Circle implements PhysicsObject
 	}
 
 	@Override
-	public void draw(Graphics g)
+	public void draw(Graphics g, Camera c)
 	{
 		g.setColor(Color.BLACK);
-		g.fillOval((int) Math.round(position.getX() - radius), (int) Math.round(position.getY() - radius), (int) (radius * 2), (int) (radius * 2));
+		g.fillOval((int) Math.round((position.getX() - radius - c.position.x) * c.scale + c.width / 2), (int) Math.round((position.getY() - radius - c.position.y) * c.scale + c.height / 2), (int) (radius * 2 * c.scale), (int) (radius * 2 * c.scale));
 	}
 }
