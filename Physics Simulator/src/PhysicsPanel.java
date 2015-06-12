@@ -104,7 +104,8 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
+		g.setColor(Color.BLACK);
+		g.drawRect((int) camera.transform(new Vector2D(0, 0)).x, (int) camera.transform(new Vector2D(0, 0)).y, (int) (camera.width * camera.scale), (int) (camera.height * camera.scale));
 		for (int i = 0; i < objects.size(); i++)
 		{
 			objects.get(i).draw(g, camera);
