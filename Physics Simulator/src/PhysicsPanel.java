@@ -149,19 +149,19 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_S)
 		{
-			camera.position.addToThis(new Vector2D(0, 50).multiply(camera.scale));
+			camera.position.addToThis(new Vector2D(0, 20).multiply(1 / camera.scale));
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_W)
 		{
-			camera.position.addToThis(new Vector2D(0, -50).multiply(camera.scale));
+			camera.position.addToThis(new Vector2D(0, -20).multiply(1 / camera.scale));
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_D)
 		{
-			camera.position.addToThis(new Vector2D(50, 0).multiply(camera.scale));
+			camera.position.addToThis(new Vector2D(20, 0).multiply(1 / camera.scale));
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_A)
 		{
-			camera.position.addToThis(new Vector2D(-50, 0).multiply(camera.scale));
+			camera.position.addToThis(new Vector2D(-20, 0).multiply(1 / camera.scale));
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_Q)
 		{
@@ -201,7 +201,7 @@ public class PhysicsPanel extends JPanel implements KeyListener,
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		objects.add(new Circle(new Vector2D(e.getPoint()).add(camera.position), new Vector2D(), 30));
+		objects.add(new Circle(camera.untransform(new Vector2D(e.getPoint())), new Vector2D(), 30));
 	}
 
 	@Override

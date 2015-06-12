@@ -12,4 +12,14 @@ public class Camera
 		width = w;
 		height = h;
 	}
+	
+	public Vector2D transform(Vector2D v)
+	{
+		return new Vector2D((v.x - position.x) * scale + width / 2, (v.y - position.y) * scale + height / 2);
+	}
+	
+	public Vector2D untransform(Vector2D v)
+	{
+		return new Vector2D(position.x + (v.x - width / 2) / scale, position.y + (v.y - height / 2) / scale);
+	}
 }

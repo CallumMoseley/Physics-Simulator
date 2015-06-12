@@ -181,6 +181,12 @@ public class Vector2D implements Comparable<Vector2D>
 	{
 		return ((Double) getLength()).compareTo(o.getLength());
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "V2D[" + x + ", " + y + "]";
+	}
 
 	/**
 	 * Finds the dot product of two given vectors
